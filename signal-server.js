@@ -1,30 +1,31 @@
-const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
-
-const app = express();
-const server = http.createServer(app);
-const io = socketIo(server);
+const app = require('express')();
+const http = require('http').createServer(app);
+const io = require('socket.io')(http, {
+  cors: {
+    origins: ['http://localhost:8080']
+  }
+});
 
 app.get('/', (req, res) => {
-    res.send('Signal Server is running');
+  res.send('<h1>Hey Socket.io</h1>');
 });
 
 io.on('connection', (socket) => {
-    console.log('A user connected: ' + socket.id);
+  console.log('a user connected');
 
-    // Listen to signaling data from the client
-    socket.on('send-signal', (data) => {
-        // Broadcast signaling data to all other clients
-        socket.broadcast.emit('receive-signal', data);
-    });
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 
-    socket.on('disconnect', () => {
-        console.log('A user disconnected: ' + socket.id);
-    });
+  socket.on('my message', (msg) => {
+    console.log('message: ' + msg);
+  });
+
+  socket.on('my message', (msg) => {
+    io.emit('my broadcast', `server: ${msg}`);
+  });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Signal Server is running on http://localhost:${PORT}`);
+http.listen(3000, () => {
+  console.log('listening on *:3000');
 });
