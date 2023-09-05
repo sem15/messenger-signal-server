@@ -24,6 +24,11 @@ io.on('connection', (socket) => {
   socket.on('my message', (msg) => {
     io.emit('my broadcast', `server: ${msg}`);
   });
+
+  socket.on('request-sessionid', () => {
+    io.to(socket.id).emit('return-sessionid', `${socket.id}`);
+  });
+
 });
 
 http.listen(3000, () => {
