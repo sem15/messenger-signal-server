@@ -6,6 +6,9 @@ const io = require('socket.io')(http, {
   }
 });
 
+//working stun: stun:3.90.174.173:3478
+//turn is running too on same port just need to test
+
 const users = []
 
 app.get('/', (req, res) => {
