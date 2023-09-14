@@ -46,9 +46,9 @@ io.on('connection', (socket) => {
     console.log(offer)
 
     // Send the offer to the other client
-    const otherClientSocket = io.sockets.connected[message.clientId];
-    console.log("other client(s)", otherClientSocket)
-    otherClientSocket.emit("offer", offer);
+    const otherClientSocket = io.sockets.clients()
+    console.log("client(s)", otherClientSocket)
+    // otherClientSocket.emit("offer", offer);
   });
 
 });
