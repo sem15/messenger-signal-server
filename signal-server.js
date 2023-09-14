@@ -41,6 +41,14 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('return-sessionid', `${socket.id}`);
   });
 
+  socket.on("offer", (message) => {
+    const offer = message.offer;
+    console.log(offer)
+    // Send the offer to the other client
+    // const otherClientSocket = io.sockets.connected[message.clientId];
+    // otherClientSocket.emit("offer", offer);
+  });
+
 });
 
 http.listen(3000, () => {
