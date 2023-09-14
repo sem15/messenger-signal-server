@@ -46,13 +46,11 @@ io.on('connection', (socket) => {
     console.log(offer)
 
     // Send the offer to the other client
-    const allClients = Object.keys(io.engine.clients)
-    for(let i = 0; i < allClients.length; i++) {
-      if(allClients[i] != socket.id) {
-        console.log("possible client:", allClients[i])
+    for(let i = 0; i < users.length; i++) {
+      if(users[i] != socket.id) {
+        console.log("possible client:", users[i])
       }
     }
-    console.log("client(s)", )
     // otherClientSocket.emit("offer", offer);
   });
 
