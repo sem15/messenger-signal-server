@@ -59,17 +59,17 @@ io.on('connection', (socket) => {
   socket.on('offer-response', (response) => {
 
     console.log("offer-response:", response.answer)
-    let targetClient
+    let sendBackToClient
 
     // Send the response to the other client
     for(let i = 0; i < users.length; i++) {
       if(users[i] != socket.id) {
         targetClient = users[i]
-        console.log("client response to:", targetClient)
+        console.log("client response to:", sendBackToClient)
       }
     }
 
-    io.to(socket.id).emit('offer-response', response.answer);
+    io.to(sendBackToClient).emit('offer-response', response.answer);
   });
 
 });
