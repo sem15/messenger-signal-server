@@ -29,18 +29,12 @@ io.on('connection', (socket) => {
     console.log("Number of active connections is now:", users.length)
   });
 
-  socket.on('my message', (msg) => {
-    console.log('message: ' + msg);
-  });
-
-  socket.on('my message', (msg) => {
-    io.emit('my broadcast', `server: ${msg}`);
-  });
-
+  //returns sessionid to frontend
   socket.on('request-sessionid', () => {
     io.to(socket.id).emit('return-sessionid', `${socket.id}`);
   });
 
+  //sends offer to target clients
   socket.on("offer", (message) => {
     console.log("socket.io got:", message)
     const offer = message.offer;
@@ -50,19 +44,13 @@ io.on('connection', (socket) => {
     // Send the offer to the other client
     for(let i = 0; i < users.length; i++) {
       if(users[i] != socket.id) {
-        // console.log("possible client:", users[i])
         targetClient = users[i]
         console.log("target client:", targetClient)
       }
     }
 
     //This is a temporary solution for testing and will assume there is only one other client who will connect.
-    //You need to rework this so that it works for many:many
-
     io.to(targetClient).emit('offer', offer);
-
-
-    // otherClientSocket.emit("offer", offer);
   });
 
 });
