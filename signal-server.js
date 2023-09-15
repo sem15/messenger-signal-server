@@ -54,6 +54,24 @@ io.on('connection', (socket) => {
     io.to(targetClient).emit('offer', offer);
   });
 
+  //sends WebRTC response back to sender
+  //this will need to be updated to work with more than one client
+  socket.on('offer-response', (response) => {
+
+    console.log("offer-response:", response)
+    let targetClient
+
+    // Send the response to the other client
+    for(let i = 0; i < users.length; i++) {
+      if(users[i] != socket.id) {
+        targetClient = users[i]
+        console.log("client response to:", targetClient)
+      }
+    }
+
+    io.to(socket.id).emit('offer-response', response.answer);
+  });
+
 });
 
 http.listen(3000, () => {
