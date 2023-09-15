@@ -44,13 +44,23 @@ io.on('connection', (socket) => {
   socket.on("offer", (message) => {
     const offer = message.offer;
     console.log(offer)
+    let targetClient
 
     // Send the offer to the other client
     for(let i = 0; i < users.length; i++) {
       if(users[i] != socket.id) {
-        console.log("possible client:", users[i])
+        // console.log("possible client:", users[i])
+        targetClient = users[i]
+        console.log("target client:", targetClient)
       }
     }
+
+    //This is a temporary solution for testing and will assume there is only one other client who will connect.
+    //You need to rework this so that it works for many:many
+
+    io.to(targetClient).emit('offer', offer);
+
+
     // otherClientSocket.emit("offer", offer);
   });
 
