@@ -36,9 +36,7 @@ io.on('connection', (socket) => {
 
   //sends offer to target clients
   socket.on("offer", (message) => {
-    console.log("socket.io got:", message)
     const offer = message.offer;
-    console.log(offer)
     let targetClient
 
     // Send the offer to the other client
@@ -48,6 +46,9 @@ io.on('connection', (socket) => {
         console.log("target client:", targetClient)
       }
     }
+
+    console.log(socket.id, '=>', targetClient)
+    console.log(offer)
 
     //This is a temporary solution for testing and will assume there is only one other client who will connect.
     io.to(targetClient).emit('offer', offer);
