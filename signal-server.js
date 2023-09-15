@@ -42,6 +42,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on("offer", (message) => {
+    console.log("socket.io got:", message)
     const offer = message.offer;
     console.log(offer)
     let targetClient
