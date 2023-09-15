@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
   //this will need to be updated to work with more than one client
   socket.on('offer-response', (response) => {
 
-    console.log("offer-response:", response)
+    console.log("offer-response:", response.answer)
     let targetClient
 
     // Send the response to the other client
