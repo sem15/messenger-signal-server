@@ -11,6 +11,22 @@ const io = require('socket.io')(http, {
 
 const users = []
 
+// Create the RTCPeerConnection object
+const peerConnection = new RTCPeerConnection({
+  iceServers: [
+    {
+      urls: ['stun:stun.l.google.com:19302']
+    }
+  ]
+})
+
+// Add a listener for the icecandidate event
+peerConnection.addEventListener('icecandidate', (event) => {
+  // Signal the ICE candidate to the remote peer
+  // ...
+  console.console.log(event)
+})
+
 app.get('/', (req, res) => {
   res.send('<h1>Hey Socket.io</h1>');
 });
