@@ -11,21 +11,6 @@ const io = require('socket.io')(http, {
 
 const users = []
 
-// Create the RTCPeerConnection object
-const peerConnection = new RTCPeerConnection({
-  iceServers: [
-    {
-      urls: ['stun:stun.l.google.com:19302']
-    }
-  ]
-})
-
-// Add a listener for the icecandidate event
-peerConnection.addEventListener('icecandidate', (event) => {
-  // Signal the ICE candidate to the remote peer
-  // ...
-  console.console.log(event)
-})
 
 app.get('/', (req, res) => {
   res.send('<h1>Hey Socket.io</h1>');
@@ -35,6 +20,23 @@ io.on('connection', (socket) => {
   console.log('a user connected');
   users.push(socket.id)
   console.log("Number of active connections is now:", users.length)
+
+
+  // Create the RTCPeerConnection object
+  const peerConnection = new RTCPeerConnection({
+    iceServers: [
+      {
+        urls: ['stun:stun.l.google.com:19302']
+      }
+    ]
+  })
+
+  // Add a listener for the icecandidate event
+  peerConnection.addEventListener('icecandidate', (event) => {
+    // Signal the ICE candidate to the remote peer
+    // ...
+    console.console.log(event)
+  })
 
   socket.on('disconnect', () => {
     let index = users.indexOf(socket.id);
