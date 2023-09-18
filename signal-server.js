@@ -5,7 +5,7 @@ const io = require('socket.io')(http, {
     origins: ['http://localhost:8080', 'http://messenger-frontend.s3-website-us-east-1.amazonaws.com/']
   }
 });
-const RTCPeerConnection = require('webrtc').RTCPeerConnection;
+const RTCPeerConnection = require('webrtc')
 
 //working stun: stun:3.90.174.173:3478
 //turn is running too on same port just need to test
