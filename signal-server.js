@@ -33,10 +33,10 @@ io.on('connection', (socket) => {
   })
 
   // Add a listener for the icecandidate event
-  peerConnection.addEventListener('icecandidate', (event) => {
+  peerConnection.on('icecandidate', (event) => {
     // Signal the ICE candidate to the remote peer
     // ...
-    console.console.log(event)
+    console.log(event)
   })
 
   socket.on('disconnect', () => {
